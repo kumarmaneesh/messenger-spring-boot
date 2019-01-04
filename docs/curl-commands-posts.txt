@@ -1,0 +1,18 @@
+# Add new post
+curl -i -H "Content-Type: application/json" -X POST -d '{
+        "message": "My first post!"
+    }' localhost:9091/posts
+
+# List all posts
+curl -i -H "Content-Type: application/json" \
+    -X GET localhost:9091/posts
+
+# Get one post
+curl -i -H "Content-Type: application/json" \
+    -X GET localhost:9091/posts/2
+
+# Change one post
+curl -i -H "Content-Type: application/json" -X POST -d '{
+        "message": "my updated post!"
+    }' localhost:9091/posts/2
+

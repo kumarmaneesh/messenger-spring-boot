@@ -28,4 +28,40 @@ public class PostController {
         posts.add(post);
         return post;
     }
+
+    @GetMapping("/posts/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Post getOnePost(@PathVariable long id){
+        for(Post post: posts) {
+            if(post.getId()==id)
+            return post;
+        }
+        throw new IllegalArgumentException();
+    }
+
+
+    @PostMapping("/posts/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Post updatePost(
+            @PathVariable("id") long id,
+            @RequestBody Post newPost
+    ){
+        for(Post post: posts){
+            if(post.getId()==id){
+                posts.remove(post);
+                newPost.setId(id);
+                posts.add(newPost);
+                return newPost;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    // Create Exception Handle
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST,
+            reason = "Request ID not found.")
+    @ExceptionHandler(IllegalArgumentException.class)
+    public void badIdExceptionHandler() {
+        // Nothing to do
+    }
 }
