@@ -1,0 +1,10 @@
+# Add new like to a post
+curl -i -H "Content-Type: application/json" -X POST -d '{
+    }' localhost:9091/posts/1/likes
+
+# List all likes
+curl -i -H "Content-Type: application/json" \
+    -X GET localhost:9091/posts/1/likes
+
+
+
