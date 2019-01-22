@@ -51,4 +51,8 @@ public class Post {
     public List<Like> getLikes() {
         return likes;
     }
+
+    public void removeLike(Like like){
+        likes.remove(like);
+    }
 }

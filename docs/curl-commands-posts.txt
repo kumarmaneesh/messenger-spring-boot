@@ -16,3 +16,5 @@ curl -i -H "Content-Type: application/json" -X POST -d '{
         "message": "my updated post!"
     }' localhost:9091/posts/2
 
+# Delete one post
+curl -i -H "Content-Type: application/json" -X DELETE localhost:9091/posts/1

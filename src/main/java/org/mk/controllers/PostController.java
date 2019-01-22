@@ -64,6 +64,18 @@ public class PostController {
         throw new IllegalArgumentException();
     }
 
+    @DeleteMapping("/posts/{postId}")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean deletePost(@PathVariable("postId") long postId){
+        for(Post post: postCache.getAllPosts()){
+            if(post.getId()==postId){
+                postCache.removePost(post);
+                return true;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
     // Create Exception Handle
     @ResponseStatus(value = HttpStatus.BAD_REQUEST,
             reason = "Request ID not found.")

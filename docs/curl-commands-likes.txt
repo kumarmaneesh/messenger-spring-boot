@@ -6,5 +6,10 @@ curl -i -H "Content-Type: application/json" -X POST -d '{
 curl -i -H "Content-Type: application/json" \
     -X GET localhost:9091/posts/1/likes
 
+# update like for a post
+curl -i -H "Content-Type: application/json" -X POST -d '{
+    }' localhost:9091/posts/1/likes/1
 
-
+# delete a like for a post
+curl -i -H "Content-Type: application/json" -X DELETE -d '{
+    }' localhost:9091/posts/1/likes/1

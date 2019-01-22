@@ -1,6 +1,5 @@
 package org.mk.controllers;
 
-import org.mk.cache.LikeCache;
 import org.mk.cache.PostCache;
 import org.mk.model.Like;
 import org.mk.model.Post;
@@ -22,12 +21,9 @@ public class LikeController {
     @Autowired
     private PostCache postCache;
 
-    @Autowired
-    private LikeCache likeCache;
-
     @GetMapping("/posts/{postId}/likes")
     @ResponseStatus(HttpStatus.OK)
-    public List<Like> getAllLikesForPost(@PathVariable long postId){
+    public List<Like> getAllLikesForPost(@PathVariable("postId") long postId){
         for (Post post: postCache.getAllPosts()) {
             if (post.getId() == postId)
                 return post.getLikes();
@@ -37,7 +33,7 @@ public class LikeController {
 
     @PostMapping("/posts/{postId}/likes")
     @ResponseStatus(HttpStatus.CREATED)
-    public Like createLikeForPost(@PathVariable long postId, @RequestBody Like like){
+    public Like createLikeForPost(@PathVariable("postId") long postId, @RequestBody Like like){
         for (Post post: postCache.getAllPosts()){
             if(post.getId()==postId) {
                 like.setId(nextId.incrementAndGet());
@@ -45,6 +41,38 @@ public class LikeController {
                 like.setLikedBy("Maneesh Kumar");
                 post.setLike(like);
                 return like;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @PostMapping("/posts/{postId}/likes/{likeId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Like updateLikeForPost(@PathVariable("postId") long postId, @PathVariable("likeId") long likeId){
+        for (Post post: postCache.getAllPosts()){
+            if(post.getId()==postId) {
+                for (Like eLike : post.getLikes()) {
+                    if (eLike.getId() == likeId) {
+                        eLike.setLikedBy("Roger Federrer");
+                        return eLike;
+                    }
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @DeleteMapping("/posts/{postId}/likes/{likeId}")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean deleteLikeForPost(@PathVariable("postId") long postId, @PathVariable("likeId") long likeId){
+        for (Post post: postCache.getAllPosts()){
+            if(post.getId()==postId){
+                for(Like eLike: post.getLikes()){
+                    if(eLike.getId()==likeId){
+                        post.removeLike(eLike);
+                        return true;
+                    }
+                }
             }
         }
         throw new IllegalArgumentException();
