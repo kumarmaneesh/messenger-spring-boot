@@ -21,7 +21,6 @@ public class PostController {
 
     @GetMapping("/posts")
     public List<Post> getAllPosts(){
-        //return posts;
         return postCache.getAllPosts();
     }
 
@@ -29,9 +28,7 @@ public class PostController {
     @ResponseStatus(HttpStatus.CREATED)
     public Post createNewPost(@RequestBody Post post){
         post.setId(nextId.incrementAndGet());
-        //post.setMessage("Hello World!");
         postCache.addPost(post);
-        //posts.add(post);
         return post;
     }
 
@@ -39,7 +36,6 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     public Post getOnePost(@PathVariable long id){
         for(Post post: postCache.getAllPosts()) {
-            //for(Post post: posts) {
             if(post.getId()==id)
             return post;
         }
@@ -53,7 +49,6 @@ public class PostController {
             @RequestBody Post newPost
     ){
         for(Post post: postCache.getAllPosts()) {
-            //for(Post post: posts){
             if(post.getId()==id){
                 postCache.removePost(post);
                 newPost.setId(id);

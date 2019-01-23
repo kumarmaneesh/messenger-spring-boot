@@ -1,0 +1,15 @@
+# Add new like to a post
+curl -i -H "Content-Type: application/json" -X POST -d '{
+    }' localhost:9091/posts/1/comments
+
+# List all likes
+curl -i -H "Content-Type: application/json" \
+    -X GET localhost:9091/posts/1/comments
+
+# update comment for a post
+curl -i -H "Content-Type: application/json" -X POST -d '{
+    }' localhost:9091/posts/1/comments/1
+
+# delete a comment for a post
+curl -i -H "Content-Type: application/json" -X DELETE -d '{
+    }' localhost:9091/posts/1/comments/1

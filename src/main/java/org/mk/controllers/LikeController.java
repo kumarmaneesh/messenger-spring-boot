@@ -15,7 +15,6 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 @RestController
 public class LikeController {
-    //private List<Like> likes = new ArrayList<>();
     private AtomicLong nextId = new AtomicLong();
 
     @Autowired
