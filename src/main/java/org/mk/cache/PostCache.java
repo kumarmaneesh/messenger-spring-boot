@@ -16,6 +16,7 @@ public class PostCache {
     public List<Post> getAllPosts(){
         return posts;
     }
+
     public void addPost (Post post){
         posts.add(post);
     }
